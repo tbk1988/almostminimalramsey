@@ -1,0 +1,22 @@
+This folder contains some scripts that are written in Sage. They are written
+that way for simplicity.
+
+counting.py
+  This script is for counting the total number H_{13}-patterned graphs given
+  that we have a folder containing the output of writetofiles.py  and the extra
+  file real-3-5-13-26.g6 which contains the graph6-string of H_{13}.
+
+count_orbits.py
+  Reads some graph6-strings of graphs from stdin and counts the number of
+  orbits in each of those graph's automorphism groups. Then also gives the sum
+  of numbers of orbits over all graphs given in stdin.
+
+writetofiles.py
+  Scipt for taking the output of "proper" program and writing the result to
+  several different files of the form real-3-*-*-*.g6, depending on the
+  independence number, order and size of the graph. This does not calculate the
+  independence number of the graphs (should be given as first part of each
+  line) since that was a bottleneck for quite large graphs.
+  - Note! If one wants to use counting.py on this later one should also make a
+    separate file real-3-5-13-26.g6 for H_{13} in the same directory as the
+    other files.
