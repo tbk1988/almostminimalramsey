@@ -1,0 +1,70 @@
+WARNING! In this text and in the implementation there is an difference in
+terminology form that in the "report". We here consider the graph H₁₃ itself
+not to be a H₁₃-patterned graph. This means that if there is a 4-cycle in the
+pattern that is contained in a hyperedge, it has *exactly* one edge to it in
+the pattern.
+
+1. COMPILING
+------------
+Use
+  # make
+to compile the code.
+
+You should set up the NAUTYDIR variable in the Makefile to point to your
+nauty26r7 directory (containing both source files and .o files) before
+executing the above command.
+
+2. EXAMPLE USAGE:
+-----------------
+* To generate all connected H₁₃-patterns (unique up to isomorphism) that
+have an auxiliary pattern with at most [n] vertices use:
+  # geng -tcD3 [n] | ./generator | sort | uniq
+
+* To generate all connected H₁₃-patterned graphs from this list pipe the
+result into ./proper:
+  # geng -tcD3 [n] | ./generator | sort | uniq | ./proper
+This results in a list of the H₁₃-patterned graphs, each line in the output
+consists of two strings separated by a space. The first is the independence
+number of the graph and the second is the graph6-string of the
+H₁₃-patterned graph.
+
+3. FILES
+--------
+essentialinfo.*
+  Source code for the "stss" and "essentialinfo" structs and things related
+  things. This is for keeping track of apices,coapices and so on.
+
+graph.*
+  A slow and simple graph implementation that is used in parts of the
+  H₁₃-patterned graph building program "proper".
+
+pattern.*
+  Source code for a slow and simple pattern implementation that is used in
+  "proper".
+stitching.*
+  Header and routines for making the types of stitches that are needed and then
+  updating the apices,coapices and so on.
+
+generator.c
+  Source code for the "generator" program which generates all (and several
+  copies of each) auxiliary patterns on all the underlying graphs read from
+  stdin. It assumes that every line in stdin is a graph6-string of a triangle-
+  free graph with maximum degree at most three.
+
+  To stdout it writes all auxiliary patterns for all the underlying graphs.
+  Each line of output is a pair of strings separated by a space. The second
+  string is the adjacency matrix of an auxiliary pattern, where loops
+  correspond to contracted hyperedges in the H₁₃-pattern. The first string
+  is the independence number of the corresponding graph. The graphs in the
+  output have been canonically labelled so to remove redundant copies of the
+  same graph one can use "sort | uniq" on the result.
+
+proper.c
+  Main source for the progam "proper" which reads auxiliary H₁₃-patterns in
+  the form given by the "generator" program form stdin. It outputs for each
+  such pattern in the input the corresponding H₁₃-patterned graph.
+
+  Each line in the output consists of two strings separated by a space. The
+  first string is the independence number of the H₁₃-patterned graph. The
+  second string is a graph6 string of the H₁₃-patterned graph. The graph in
+  the output has been canonically labelled.
